@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<title>Number Game</title>
+   	<head></head> 
+  	 <body>
+      <p>
+        Guess a number between 1 to 100! You have 6 tries
+      </p>
+      <p> 
+        <input class="js-number"
+          placeholder = 'Key in a number'
+          onkeydown="
+          if(event.key==='Enter'){
+            compareNumber()}
+          
+          "
+         >
+
+          <button onclick="
+          compareNumber()
+          ">Enter</button>
+      </p>
+      <P class="js-hint"></P>
+        <p class="js-triesleft"> 
+        </p>
+        <p>
+          <button onclick="
+            tries=0
+            generateNumber()
+            console.log(compNo)
+            document.querySelector('.js-hint').innerHTML=`A new game has started!`
+            ">New game</button>
+        </p>
+        <p class="js-tries"></p>
+		  <script>
+        let compNo = '';
+        let tries = 0;
+
+        function generateNumber(){
+          compNo = Number(Math.ceil(Math.random()*100));
+        }  // Selects the computer generated random number
+
+        generateNumber()
+
+        function compareNumber(){
+          
+          console.log(compNo)          
+          tries += 1
+          document.querySelector('.js-triesleft').innerHTML=`You have ${6-tries} tries left!`
+
+
+          const inputValue=document.querySelector('.js-number').value;
+          if(inputValue>compNo){
+            document.querySelector('.js-hint').innerHTML=
+            `You guessed ${inputValue}.The number is smaller`;
+          }else if (inputValue<compNo){
+            document.querySelector('.js-hint').innerHTML=
+            `You guessed ${inputValue}.The number is larger`;
+          }else if (inputValue==compNo){
+            document.querySelector('.js-hint').innerHTML=
+            `You got the number right! The number is ${compNo}.`;
+          }else if (typeof inputValue != Number){
+            document.querySelector('.js-hint').innerHTML=`
+            Please only key in numbers`
+            tries-=1 //Doesn't add the number of tries if the user didn't key in a number
+          }
+
+          console.log(tries)
+
+        if(tries>=6){
+  
+          document.querySelector('.js-hint').innerHTML=`
+          You took too many tries :( , start a new game.`
+
+          document.querySelector('.js-triesleft').innerHTML=`You have 0 tries left`
+                    
+        }
+        
+      }
+          
+        
+        console.log(compNo)
+       
+        
+
+        
+      
+      </script>
+    </body>  
+
+</html>
